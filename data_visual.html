@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soil Data Visualization</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      margin-bottom: 20px; /* Reduced space below the container */
+    }
+    canvas {
+      margin: 10px 0; /* Reduced margin between charts */
+    }
+    input, button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .recommendation {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+    }
+    /* Footer Styling */
+    .footer {
+      flex-shrink: 0;
+      background: #343a40;
+      color: white;
+      width: 100%;
+      padding: 15px 10px;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer .btn {
+      font-size: 14px;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Soil Data Visualization</h1>
+    <label for="time">Time (e.g., 1, 2, 3):</label>
+    <input type="text" id="time" placeholder="Enter time values separated by commas">
+    <br>
+    <label for="moisture">Soil Moisture:</label>
+    <input type="text" id="moisture" placeholder="Enter moisture values separated by commas">
+    <br>
+    <label for="ph">pH Value:</label>
+    <input type="text" id="ph" placeholder="Enter pH values separated by commas">
+    <br>
+    <button onclick="generateCharts()">Generate Charts</button>
+    
+    <!-- Charts -->
+    <canvas id="barChart"></canvas>
+    <canvas id="pieChart"></canvas>
+    <canvas id="histogram"></canvas>
+
+    <!-- Recommendation Section -->
+    <div class="recommendation">
+      <h2>Recommendations:</h2>
+      <p id="recommendationText">Please generate charts based on the data you enter above.</p>
+    </div>
+  </div>
+
+  <script>
+    // Function to generate charts and send data to the server
+    function generateCharts() {
+      const time = document.getElementById('time').value.split(',').map(Number);
+      const moisture = document.getElementById('moisture').value.split(',').map(Number);
+      const ph = document.getElementById('ph').value.split(',').map(Number);
+
+      // Bar Chart: Soil Moisture over Time
+      const ctxBar = document.getElementById('barChart').getContext('2d');
+      new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+          labels: time,
+          datasets: [{
+            label: 'Soil Moisture',
+            data: moisture,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Soil Moisture Over Time'
+            }
+          },
+          scales: {
+            x: { title: { display: true, text: 'Time' } },
+            y: { title: { display: true, text: 'Moisture (%)' } }
+          }
+        }
+      });
+
+      // Pie Chart: pH Values Distribution
+      const ctxPie = document.getElementById('pieChart').getContext('2d');
+      new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+          labels: time,
+          datasets: [{
+            label: 'pH Value',
+            data: ph,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+              'rgba(75, 192, 192, 0.6)',
+              'rgba(153, 102, 255, 0.6)'
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'pH Value Distribution'
+            }
+          }
+        }
+      });
+
+      // Histogram: pH Value Frequency Distribution
+      const ctxHistogram = document.getElementById('histogram').getContext('2d');
+      new Chart(ctxHistogram, {
+        type: 'bar',
+        data: {
+          labels: Array.from(new Set(ph)).sort((a, b) => a - b),
+          datasets: [{
+            label: 'Frequency',
+            data: Array.from(new Set(ph)).map(val => ph.filter(x => x === val).length),
+            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'pH Value Frequency Distribution'
+            }
+          },
+          scales: {
+            x: { title: { display: true, text: 'pH Values' } },
+            y: { title: { display: true, text: 'Frequency' } }
+          }
+        }
+      });
+
+      // Send the data to the server for storage in the database
+      fetch('store_data.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          time: time,
+          moisture: moisture,
+          ph: ph
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Data stored successfully:', data);
+      })
+      .catch(error => {
+        console.error('Error storing data:', error);
+      });
+
+      // Display recommendations based on soil moisture and pH
+      let recommendation = '';
+      if (moisture.some(m => m < 10)) {
+        recommendation += "<p><strong>Recommendation:</strong> Low soil moisture detected. Consider watering the soil.</p>";
+      }
+      if (ph.some(p => p < 5 || p > 7)) {
+        recommendation += "<p><strong>Recommendation:</strong> pH levels are outside the optimal range (6-7). Consider adjusting soil pH.</p>";
+      }
+      if (!recommendation) {
+        recommendation = "<p><strong>Recommendation:</strong> Soil moisture and pH levels are within a healthy range.</p>";
+      }
+
+      // Display the recommendation text
+      document.getElementById('recommendationText').innerHTML = recommendation;
+    }
+  </script>
+
+  <!-- Footer -->
+  <div class="footer">
+    <a href="custom_plan.html"><button class="btn btn-primary">Customizable Plans</button>
+    <a href="home.html">
+      <button class="btn btn-secondary">Back Home</button>
+    </a>
+  </div>
+</body>
+</html>

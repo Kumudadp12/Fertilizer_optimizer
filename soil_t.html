@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Plans</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .option {
+            width: 48%;
+            padding: 15px;
+            background-color: #e8f4ff;
+            border: 1px solid #007bff;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .option:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .form-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+.footer {
+            flex-shrink: 0;
+            background: #343a40;
+            color: white;
+            width: 100%;
+            padding: 15px 20px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer .btn {
+            font-size: 14px;
+            padding: 10px 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Action Plans</h1>
+        
+        <!-- Options Section -->
+        <div class="options">
+            <div class="option" onclick="showPurchaseOption()">Purchase Soil Testing Kit</div>
+            <div class="option" onclick="showForm()">Enter Soil and Land Details</div>
+        </div>
+
+        <!-- Purchase Section -->
+        <div class="form-container" id="purchaseContainer">
+            <h2>Purchase Soil Testing Kit</h2>
+            <p>Our advanced soil testing kit is available for purchase. Click the button below to proceed.</p>
+            <button onclick="alert('Redirecting to purchase page!')">Buy Now</button>
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-container" id="formContainer">
+            <h2>Enter Soil and Land Details</h2>
+            <form action="save_details.php" method="POST">
+                <label for="farmId">Farm ID</label>
+                <input type="text" id="farmId" name="farmId" placeholder="Enter farm ID" required>
+
+                <label for="farmerName">Farmer Name</label>
+                <input type="text" id="farmerName" name="farmerName" placeholder="Enter your name" required>
+
+                <label for="landSize">Land Size (in acres)</label>
+                <input type="number" id="landSize" name="landSize" placeholder="Enter land size" required>
+
+                <label for="soilType">Soil Type</label>
+                <select id="soilType" name="soilType" required>
+                    <option value="" disabled selected>Select soil type</option>
+                    <option value="Sandy">Sandy</option>
+                    <option value="Clayey">Clayey</option>
+                    <option value="Loamy">Loamy</option>
+                </select>
+
+                <label for="phValue">Soil pH Value</label>
+                <input type="number" step="0.1" id="phValue" name="phValue" placeholder="Enter pH value (e.g., 7.5)" required>
+
+                <label for="comments">Additional Comments</label>
+                <textarea id="comments" name="comments" placeholder="Add any additional information..." rows="4"></textarea>
+                
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Show the Purchase Option Section
+        function showPurchaseOption() {
+            document.getElementById("purchaseContainer").classList.add("active");
+            document.getElementById("formContainer").classList.remove("active");
+        }
+
+        // Show the Form Section
+        function showForm() {
+            document.getElementById("formContainer").classList.add("active");
+            document.getElementById("purchaseContainer").classList.remove("active");
+        }
+    </script>
+	<div class="footer">
+        <a href="home.html">
+            <button class="btn btn-secondary">Back Home</button>
+        </a>
+    </div>
+</body>
+</html>

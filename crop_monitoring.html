@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Monitoring Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f9f4;
+            margin: 0;
+            padding: 0;
+        }
+	.footer {
+    flex-shrink: 0;
+    background: #343a40;
+    color: white;
+    width: 100%;
+    padding: 15px 10px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer .btn {
+    font-size: 14px;
+    padding: 10px 20px;
+}
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #444;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+        .section .content {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .content div {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        .content div img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crop Monitoring Dashboard</h1>
+
+        <!-- Satellite Imagery Section -->
+        <div class="section">
+            <h2>Satellite Imagery</h2>
+            <div class="content">
+                <div>
+                    <img src="https://gsp.humboldt.edu/olm/Courses/GSP_216/images/CA-NDVI.jpg" alt="Satellite Image">
+                    <p>View satellite imagery of your field to monitor crop health.</p>
+                    <button onclick="analyzeSatellite()">Analyze Satellite Data</button>
+                </div>
+                <div>
+                    <h3>Analysis</h3>
+                    <p id="satelliteAnalysis">No analysis yet.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- IoT Sensors Section -->
+        <div class="section">
+            <h2>IoT Sensors</h2>
+            <div class="content">
+                <div>
+                    <p>Live soil moisture: <span id="soilMoisture">N/A</span></p>
+                    <p>Live temperature: <span id="temperature">N/A</span></p>
+                    <p>Live humidity: <span id="humidity">N/A</span></p>
+                    <button onclick="updateSensorData()">Update Sensor Data</button>
+                </div>
+                <div>
+                    <h3>Recommendations</h3>
+                    <p id="sensorRecommendations">No recommendations yet.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weather Forecasting Section -->
+        <div class="section">
+            <h2>Weather Forecast</h2>
+            <div class="content">
+                <div>
+                    <img src="https://img.freepik.com/premium-photo/sky-white-clouds-pure-air_38679-451.jpg" alt="Weather Forecast">
+                    <p>Stay updated with weather predictions to plan optimal fertilizer application.</p>
+                    <button onclick="fetchWeather()">Get Weather Forecast</button>
+                </div>
+                <div>
+                    <h3>Forecast Data</h3>
+                    <p id="weatherForecast">No forecast data yet.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate Satellite Data Analysis
+        function analyzeSatellite() {
+            setTimeout(() => {
+                document.getElementById('satelliteAnalysis').textContent = 
+                    "Healthy crop zones: 70%. Areas requiring attention: 30%.";
+                alert("Satellite data analysis complete!");
+            }, 2000);
+        }
+
+        // Simulate IoT Sensor Data Update
+        function updateSensorData() {
+            // Simulated sensor values
+            const soilMoisture = Math.random() * 100;
+            const temperature = (Math.random() * 15 + 20).toFixed(1); // 20°C to 35°C
+            const humidity = (Math.random() * 50 + 30).toFixed(1); // 30% to 80%
+
+            document.getElementById('soilMoisture').textContent = soilMoisture.toFixed(1) + "%";
+            document.getElementById('temperature').textContent = temperature + "°C";
+            document.getElementById('humidity').textContent = humidity + "%";
+
+            const recommendations = soilMoisture < 30 
+                ? "Increase irrigation in dry zones."
+                : "Irrigation is adequate.";
+
+            document.getElementById('sensorRecommendations').textContent = recommendations;
+            alert("IoT sensor data updated!");
+        }
+
+        // Simulate Weather Forecast Fetching
+        function fetchWeather() {
+            setTimeout(() => {
+                document.getElementById('weatherForecast').textContent = 
+                    "Upcoming Rainfall: Moderate (next 3 days). Temperature: 25-30°C.";
+                alert("Weather forecast updated!");
+            }, 2000);
+        }
+    </script>
+<div class="footer">
+            <a href="home.html">
+            <button class="btn btn-secondary">Back Home</button>
+        </a>
+    </div>
+
+</body>
+</html>

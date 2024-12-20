@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Nutrient Level Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f9f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .table {
+            flex: 1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        td {
+            font-weight: bold;
+        }
+
+        .pending {
+            color: orange;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+.footer {
+            flex-shrink: 0;
+            background: #343a40;
+            color: white;
+            width: 100%;
+            padding: 15px 10px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer .btn {
+            font-size: 14px;
+            padding: 10px 20px;
+        }s
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crop Nutrient Level Analysis</h1>
+        <div class="table-container">
+            <!-- Crop and Required Nutrient Levels -->
+            <div class="table">
+                <h2>Crop Requirements</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Crop</th>
+                            <th>N (Nitrogen %)</th>
+                            <th>P (Phosphorus %)</th>
+                            <th>K (Potassium %)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cropTable">
+                        <!-- Crops and required levels will populate here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Real-Time Analysis -->
+            <div class="table">
+                <h2>Real-Time Analysis</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Crop</th>
+                            <th>Status/Values</th>
+                        </tr>
+                    </thead>
+                    <tbody id="analysisTable">
+                        <!-- Real-time nutrient levels will populate here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="button-container">
+            <button onclick="analyzeNutrients()">Analyze Nutrients</button>
+        </div>
+    </div>
+
+    <script>
+        // Crop nutrient requirements
+        const cropData = [
+            { crop: "Wheat", nitrogen: 60, phosphorus: 50, potassium: 40 },
+            { crop: "Rice", nitrogen: 50, phosphorus: 40, potassium: 30 },
+            { crop: "Maize", nitrogen: 55, phosphorus: 45, potassium: 35 }
+        ];
+
+        // Populate crop requirements table
+        const cropTable = document.getElementById("cropTable");
+        cropData.forEach(crop => {
+            const row = `
+                <tr>
+                    <td>${crop.crop}</td>
+                    <td>${crop.nitrogen}%</td>
+                    <td>${crop.phosphorus}%</td>
+                    <td>${crop.potassium}%</td>
+                </tr>
+            `;
+            cropTable.innerHTML += row;
+        });
+
+        // Populate real-time analysis table with "Yet to be analysed"
+        const analysisTable = document.getElementById("analysisTable");
+        cropData.forEach(crop => {
+            const row = `
+                <tr>
+                    <td>${crop.crop}</td>
+                    <td class="pending">Yet to be analysed</td>
+                </tr>
+            `;
+            analysisTable.innerHTML += row;
+        });
+
+        // Simulate real-time analysis update
+        function analyzeNutrients() {
+            // Simulated analyzed values for each crop
+            const analyzedData = [
+                { crop: "Wheat", nitrogen: 58, phosphorus: 48, potassium: 38 },
+                { crop: "Rice", nitrogen: 52, phosphorus: 39, potassium: 32 },
+                { crop: "Maize", nitrogen: 54, phosphorus: 44, potassium: 36 }
+            ];
+
+            // Update the analysis table with real values
+            const rows = document.querySelectorAll("#analysisTable tr");
+            analyzedData.forEach((data, index) => {
+                const row = rows[index];
+                row.cells[1].innerHTML = `
+                    N: ${data.nitrogen}%, P: ${data.phosphorus}%, K: ${data.potassium}%
+                `;
+            });
+
+            alert("Nutrient analysis complete!");
+        }
+    </script>
+<div class="footer">
+            <a href="home.html">
+            <button class="btn btn-secondary">Back Home</button>
+        </a>
+    </div>
+</body>
+</html>

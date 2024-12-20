@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerts Section</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://watermark.lovepik.com/photo/20211208/large/lovepik-farmer-farming-in-wheat-field-picture_501611486.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .alert-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            max-width: 90%;
+        }
+
+        .alert {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffcccb;
+            border: 1px solid #ff5555;
+            padding: 15px;
+            width: 200px;
+            height: 120px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .alert h3 {
+            margin: 0;
+            font-size: 14px;
+            color: #b22222;
+        }
+
+        .alert button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+
+        .alert button:hover {
+            background-color: #0056b3;
+        }
+
+        .no-alerts {
+            text-align: center;
+            color: #888;
+            font-size: 18px;
+        }
+
+        .footer {
+            background: #343a40;
+            color: white;
+            width: 100%;
+            padding: 15px 10px;
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .footer .btn {
+            font-size: 14px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .footer .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Heading Section -->
+    <div class="heading">
+        Alerts History
+    </div>
+
+    <!-- Alert Section -->
+    <div class="alert-container" id="alertContainer">
+        <!-- Alerts will be dynamically added here -->
+    </div>
+
+    <script>
+        // Mock data for alerts
+        const alerts = [
+            { id: 1, message: "Low nutrient levels detected in Field A." },
+            { id: 2, message: "Pest threat detected in Field B." },
+            { id: 3, message: "Unusual weather conditions expected tomorrow." },
+            { id: 4, message: "Water scarcity in Field C." },
+        ];
+
+        // Function to render alerts
+        function renderAlerts() {
+            const alertContainer = document.getElementById('alertContainer');
+            alertContainer.innerHTML = ''; // Clear previous alerts
+
+            if (alerts.length === 0) {
+                alertContainer.innerHTML = '<p class="no-alerts">No critical alerts.</p>';
+                return;
+            }
+
+            alerts.forEach((alert) => {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert';
+                alertDiv.innerHTML = `
+                    <h3>${alert.message}</h3>
+                    <button onclick="dismissAlert(${alert.id})">Dismiss</button>
+                `;
+                alertContainer.appendChild(alertDiv);
+            });
+        }
+
+        // Function to dismiss an alert
+        function dismissAlert(alertId) {
+            const index = alerts.findIndex(alert => alert.id === alertId);
+            if (index > -1) {
+                alerts.splice(index, 1); // Remove the alert
+                renderAlerts(); // Re-render alerts
+            }
+        }
+
+        // Initial render of alerts
+        renderAlerts();
+    </script>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <a href="home.html">
+            <button class="btn btn-secondary">Back Home</button>
+        </a>
+    </div>
+</body>
+</html>

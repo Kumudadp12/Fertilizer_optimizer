@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fertilizer Optimization Software</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h2 {
+            color: #444;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+        .form-section form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select, button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .recommendations {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9f7ef;
+            border: 1px solid #28a745;
+            border-radius: 5px;
+            color: #155724;
+            display: none;
+        }
+	.footer {
+            flex-shrink: 0;
+            background: #343a40;
+            color: white;
+            width: 100%;
+            padding: 15px 10px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer .btn {
+            font-size: 14px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fertilizer Optimization Software</h1>
+
+        <!-- Input Form Section -->
+        <div class="form-section">
+            <h2>Input Details</h2>
+            <form id="fertilizerForm">
+                <label for="soilHealth">Soil Health</label>
+                <select id="soilHealth" required>
+                    <option value="" disabled selected>Select Soil Health</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+
+                <label for="cropType">Crop Type</label>
+                <select id="cropType" required>
+                    <option value="" disabled selected>Select Crop Type</option>
+                    <option value="wheat">Wheat</option>
+                    <option value="rice">Rice</option>
+                    <option value="maize">Maize</option>
+                    <option value="potato">Potato</option>
+                </select>
+
+                <label for="weatherConditions">Weather Conditions</label>
+                <select id="weatherConditions" required>
+                    <option value="" disabled selected>Select Weather Conditions</option>
+                    <option value="dry">Dry</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="wet">Wet</option>
+                </select>
+
+                <button type="button" onclick="generateRecommendations()">Generate Recommendations</button>
+            </form>
+        </div>
+
+        <!-- Recommendations Section -->
+        <div class="recommendations" id="recommendations">
+            <h2>Fertilizer Recommendations</h2>
+            <p id="recommendationText"></p>
+        </div>
+    </div>
+
+    <script>
+        // Mock Predictive Analytics Function
+        function generateRecommendations() {
+            // Retrieve form values
+            const soilHealth = document.getElementById("soilHealth").value;
+            const cropType = document.getElementById("cropType").value;
+            const weatherConditions = document.getElementById("weatherConditions").value;
+
+            // Recommendation logic
+            let recommendation = "Based on your input:\n";
+
+            if (soilHealth === "low") {
+                recommendation += "Apply Nitrogen (N) fertilizers at higher intervals. ";
+            } else if (soilHealth === "medium") {
+                recommendation += "Balanced fertilizers (NPK) are recommended. ";
+            } else {
+                recommendation += "Minimal fertilizers needed, focus on maintenance. ";
+            }
+
+            if (cropType === "rice") {
+                recommendation += "Use Phosphorus-rich fertilizers during early growth stages. ";
+            } else if (cropType === "wheat") {
+                recommendation += "Nitrogen fertilizers are crucial for leaf growth. ";
+            } else if (cropType === "maize") {
+                recommendation += "Use Potassium fertilizers for strong stalks. ";
+            } else if (cropType === "potato") {
+                recommendation += "Apply Calcium Nitrate to improve tuber quality. ";
+            }
+
+            if (weatherConditions === "dry") {
+                recommendation += "Increase irrigation and avoid over-fertilizing. ";
+            } else if (weatherConditions === "wet") {
+                recommendation += "Reduce Nitrogen application to prevent runoff. ";
+            }
+
+            // Display the recommendation
+            document.getElementById("recommendationText").textContent = recommendation;
+            document.getElementById("recommendations").style.display = "block";
+        }
+    </script>
+<div class="footer">
+            <a href="home.html">
+            <button class="btn btn-secondary">Back Home</button>
+        </a>
+    </div>
+</body>
+</html>

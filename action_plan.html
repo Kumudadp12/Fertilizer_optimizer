@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farming Solutions Software</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        button {
+            padding: 15px 30px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 200px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h2 {
+            color: #444;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+        .form-section form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select, button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .recommendations {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9f7ef;
+            border: 1px solid #28a745;
+            border-radius: 5px;
+            color: #155724;
+            display: none;
+        }
+.footer {
+            flex-shrink: 0;
+            background: #343a40;
+            color: white;
+            width: 100%;
+            padding: 10px 1px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer .btn {
+            font-size: 14px;
+            padding: 10px 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Farming Solutions Software</h1>
+
+        <!-- Button Section -->
+        <div class="button-container">
+            <a href="soil_t.html"><button>Soil Testing and Analysis</button>
+            <a href="pre_agri.html"><button>Precision Agriculture</button>
+            <a href="ferti_op.html"><button>Fertilizer Optimization Software</button>
+            <a href="crop_mon.html"><button>Crop Monitoring</button>
+        </div>
+
+        <!-- Soil Testing and Analysis Section -->
+        <div class="content-section" id="soilAnalysis">
+            <div class="form-section">
+                <h2>Soil Testing and Analysis</h2>
+                <p>Enter soil parameters for testing and analysis.</p>
+                <!-- Add the content or form here related to soil testing and analysis -->
+            </div>
+        </div>
+
+        <!-- Precision Agriculture Section -->
+        <div class="content-section" id="precisionAgriculture">
+            <div class="form-section">
+                <h2>Precision Agriculture</h2>
+                <p>Enter details for precision agriculture to optimize crop yields and farming resources.</p>
+                <!-- Add the content or form here related to precision agriculture -->
+            </div>
+        </div>
+
+        <!-- Fertilizer Optimization Software Section -->
+        <div class="content-section" id="fertilizerOptimization">
+            <div class="form-section">
+                <h2>Fertilizer Optimization Software</h2>
+                <form id="fertilizerForm">
+                    <label for="soilHealth">Soil Health</label>
+                    <select id="soilHealth" required>
+                        <option value="" disabled selected>Select Soil Health</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+
+                    <label for="cropType">Crop Type</label>
+                    <select id="cropType" required>
+                        <option value="" disabled selected>Select Crop Type</option>
+                        <option value="wheat">Wheat</option>
+                        <option value="rice">Rice</option>
+                        <option value="maize">Maize</option>
+                        <option value="potato">Potato</option>
+                    </select>
+
+                    <label for="weatherConditions">Weather Conditions</label>
+                    <select id="weatherConditions" required>
+                        <option value="" disabled selected>Select Weather Conditions</option>
+                        <option value="dry">Dry</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="wet">Wet</option>
+                    </select>
+
+                    <button type="button">Generate Recommendations</button>
+                </form>
+            </div>
+
+            <!-- Recommendations Section -->
+            <div class="recommendations" id="recommendations">
+                <h2>Fertilizer Recommendations</h2>
+                <p id="recommendationText"></p>
+            </div>
+        </div>
+
+        <!-- Crop Monitoring Section -->
+        <div class="content-section" id="cropMonitoring">
+            <div class="form-section">
+                <h2>Crop Monitoring</h2>
+                <p>Use this tool to monitor crop health and detect diseases or pest issues.</p>
+                <form id="cropMonitoringForm">
+                    <label for="cropHealth">Crop Health</label>
+                    <select id="cropHealth" required>
+                        <option value="" disabled selected>Select Crop Health Status</option>
+                        <option value="healthy">Healthy</option>
+                        <option value="stressed">Stressed</option>
+                        <option value="diseased">Diseased</option>
+                    </select>
+
+                    <label for="pestPresence">Pest Presence</label>
+                    <select id="pestPresence" required>
+                        <option value="" disabled selected>Select Pest Presence</option>
+                        <option value="none">None</option>
+                        <option value="low">Low</option>
+                        <option value="high">High</option>
+                    </select>
+
+                    <button type="button">Monitor Crops</button>
+                </form>
+            </div>
+
+            <!-- Monitoring Result Section -->
+            <div class="recommendations" id="cropMonitoringResults">
+                <h2>Monitoring Results</h2>
+                <p id="monitoringResultText"></p>
+            </div>
+        </div>
+    </div>
+ <div class="footer">
+    
+    <a href="home.html">
+        <button class="btn btn-secondary">Back Home</button>
+    </a>
+</div>
+</body>
+</html>
